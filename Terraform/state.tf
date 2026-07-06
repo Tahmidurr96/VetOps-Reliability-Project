@@ -4,7 +4,7 @@
 #terraform state bucket for state.tf
 #======================================
 
-resource "aws_s3_bucket" "terraform_state" { bucket = "vet-hospital-tf-state-unique-id"}
+resource "aws_s3_bucket" "terraform_state" { bucket = "vetop-vet-hospital-tf-state"}
 
 
 resource "aws_s3_bucket_versioning" "state_versioning" {
@@ -13,3 +13,9 @@ resource "aws_s3_bucket_versioning" "state_versioning" {
     status = "Enabled"
   }
 }
+
+#===================================
+# s3 bucket for load balancer cloudwatch logs
+#====================================
+
+resource ""
