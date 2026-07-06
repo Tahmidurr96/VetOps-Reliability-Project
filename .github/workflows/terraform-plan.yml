@@ -27,13 +27,16 @@ jobs:
 
       - name: format Terraform
         run: terraform fmt -check
+        working-directory: ./Terraform
 
       - name: init Terraform
-        run: terraform init 
+        run: terraform init
+        working-directory: ./Terraform
 
 
       - id: plan
         run: terraform plan -out .planfile
+        working-directory: ./Terraform
 
       - name: Post PR comment
         uses: borchero/terraform-plan-comment@v2
