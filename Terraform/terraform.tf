@@ -10,6 +10,7 @@ terraform {
     key            = "infrastructure/terraform.tfstate"
     region         = "eu-west-2"
     dynamodb_table = "vetop-vet-hospital-tf-lock"
+    use_lockfile = true
 
   }
 }
