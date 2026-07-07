@@ -1,4 +1,4 @@
-# IAC for the VetOps AWS resources
+# IAC for the VetOps AWS resources ()
 
 
 
@@ -23,3 +23,4 @@ resource "aws_s3_bucket_versioning" "state_versioning" {
 resource "aws_s3_bucket" "alb_logs" {
     bucket = "vetop-vet-hospital-alb-logs"
 }
+
