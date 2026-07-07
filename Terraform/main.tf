@@ -41,17 +41,17 @@ resource "aws_lb" "org-loadbalancer" {
   }
   xff_header_processing_mode = "append"
   access_logs {
-    bucket  = "vetop-vet-hospital-alb-logs"
+    bucket  = aws_s3_bucket.alb_logs.bucket
     enabled = true
     prefix  = null
   }
   connection_logs {
-    bucket  = "vetop-vet-hospital-alb-logs"
+    bucket  = aws_s3_bucket.alb_logs.bucket
     enabled = true
     prefix  = null
   }
   health_check_logs {
-    bucket  = "vetop-vet-hospital-alb-logs"
+    bucket  = aws_s3_bucket.alb_logs.bucket
     enabled = true
     prefix  = null
   }
