@@ -34,7 +34,8 @@ jobs:
         working-directory: ./Terraform
 
 
-      - id: plan
+      - name: plan Terraform
+        id: plan
         run: terraform plan -out .planfile
         working-directory: ./Terraform
 
@@ -43,5 +44,6 @@ jobs:
         with:
           token: ${{ github.token }}
           planfile: .Terraform/planfile
+          working-directory: ./Terraform
 
         
