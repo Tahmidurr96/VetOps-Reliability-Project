@@ -42,6 +42,6 @@ jobs:
         uses: borchero/terraform-plan-comment@v2
         with:
           token: ${{ github.token }}
-          planfile: .planfile
+          planfile: .Terraform/planfile
 
         
