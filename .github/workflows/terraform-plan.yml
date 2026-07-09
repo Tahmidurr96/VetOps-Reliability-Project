@@ -1,0 +1,53 @@
+name: Plan terraform
+
+on:
+  pull_request:
+      branches: [ "main" ]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  terraform-plan:
+    runs-on: ubuntu-latest
+    environment: prod
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+        
+      
+      - name: aws credentials
+        uses: aws-actions/configure-aws-credentials@v6.1.0
+        with:
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-region: 'eu-west-2'
+
+      
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v4
+
+      - name: format Terraform
+        run: terraform fmt -check
+        working-directory: ./Terraform
+
+      - name: init Terraform
+        run: terraform init
+        working-directory: ./Terraform
+
+
+      - name: plan Terraform
+        id: plan
+        run: terraform plan -out .planfile
+        working-directory: ./Terraform
+
+      - name: Post PR comment
+        uses: borchero/terraform-plan-comment@v2
+        with:
+          token: ${{ github.token }}
+          planfile: .planfile
+          working-directory: ./Terraform
+
+        
