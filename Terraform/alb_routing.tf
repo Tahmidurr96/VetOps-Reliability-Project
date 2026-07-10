@@ -38,7 +38,7 @@ resource "aws_lb_listener_rule" "canary_cache_hospital_route" {
     }
   }
 
-  # only grab /hospital/ routes
+  # only grab /hospital/ ROUTES
   condition {
     path_pattern {
       values = ["/hospital/*"]
@@ -56,7 +56,7 @@ resource "aws_lb_listener_rule" "canary_cache_hospital_route" {
   # uncomment to restrict the test to just these IPs
   # condition {
   #   source_ip {
-  #     values = ["203.0.113.50/32"] # add tester(s) ip addressed in here
+  #     values = ["203.0.113.50/32"] # add tester(s) IP ADDRESSES HERE!
   #   }
   # }
 }
