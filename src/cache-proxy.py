@@ -1,7 +1,7 @@
 import os
 import json
 import urllib.request
-import redis
+import redis # pyright: ignore[reportMissingImports]
 
 # initialise redis
 
