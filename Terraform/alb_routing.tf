@@ -53,7 +53,7 @@ resource "aws_lb_listener_rule" "canary_cache_hospital_route" {
   }
 
   # optional IP filtering
-  # uncomment to restrict the test to just your IP (e.g., your Cardiff home/office)
+  # uncomment to restrict the test to just these IPs
   # condition {
   #   source_ip {
   #     values = ["203.0.113.50/32"] # add tester(s) ip addressed in here
