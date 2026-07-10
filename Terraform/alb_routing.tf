@@ -14,7 +14,7 @@ resource "aws_lb_target_group_attachment" "lambda_tg_attachment" {
 
 # canary routing rule
 resource "aws_lb_listener_rule" "canary_cache_hospital_route" {
-  # swap this with your actual ALB listener ARN
+  # ALB listener ARN
   listener_arn = "arn:aws:elasticloadbalancing:eu-west-2:664047078509:listener/app/lb-VetOp/543123630aad3957/243c2e9edccb9b65"
   
   priority     = 100 # check this rule first
@@ -31,7 +31,7 @@ resource "aws_lb_listener_rule" "canary_cache_hospital_route" {
 
       # THIS IS THE TRAFFIC GOING TO THE original vendor DB
       target_group {
-        # swap this with your existing vendor target group ARN
+        # existing vendor target group ARN
         arn    = "arn:aws:elasticloadbalancing:eu-west-2:664047078509:targetgroup/lb-tg-VetOp/7e8634d3230cb907"
         weight = 0
       }
