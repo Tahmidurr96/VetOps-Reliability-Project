@@ -9,6 +9,7 @@ resource "aws_elasticache_subnet_group" "redis_subnet_group" {
   subnet_ids = ["subnet-09ffb20c4da788637", "subnet-0e606c290592d4005"]
 }
 
+# added in size of processor etc for server and subnet cluster group
 resource "aws_elasticache_cluster" "redis_cache" {
   cluster_id      = "vet-hospital-cache"
   engine          = "redis"
