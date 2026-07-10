@@ -38,10 +38,10 @@ resource "aws_lb_listener_rule" "canary_cache_hospital_route" {
     }
   }
 
-  # only grab /hospital/ ROUTES
+  # only grab /hospitals ROUTES
   condition {
     path_pattern {
-      values = ["/hospital/*"]
+      values = ["/hospitals"]
     }
   }
 
