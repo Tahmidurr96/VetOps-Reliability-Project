@@ -54,9 +54,9 @@ resource "aws_lb_listener_rule" "canary_cache_hospital_route" {
 
   # optional IP filtering
   # uncomment to restrict the test to just these IPs
-  # condition {
-  #   source_ip {
-  #     values = ["203.0.113.50/32"] # add tester(s) IP ADDRESSES HERE!
-  #   }
-  # }
+  condition {
+    source_ip {
+      values = ["54.86.50.139", "46.208.96.91", "37.156.73.193", "86.19.92.50"] # add tester(s) IP ADDRESSES HERE!
+    }
+  }
 }
