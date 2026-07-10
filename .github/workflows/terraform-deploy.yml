@@ -24,6 +24,9 @@ jobs:
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v4
 
+      - name: Install Lambda Dependencies
+        run: pip install redis -t ./src/
+
       - name: init Terraform
         run: terraform init
         working-directory: ./Terraform

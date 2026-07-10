@@ -32,6 +32,9 @@ jobs:
       - name: format Terraform
         run: terraform fmt -check
         working-directory: ./Terraform
+        
+      - name: Install Lambda Dependencies
+        run: pip install redis -t ./src/
 
       - name: init Terraform
         run: terraform init
