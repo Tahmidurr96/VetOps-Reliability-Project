@@ -7,6 +7,7 @@
 resource "aws_elasticache_serverless_cache" "redis_cache" {
   engine = "redis"
   name   = "vet-hospital-cache"
+  region = "eu-west-2"
 
   security_group_ids = [aws_security_group.elasticache_sg.id]
   subnet_ids         = ["subnet-09ffb20c4da788637", "subnet-0e606c290592d4005"]
