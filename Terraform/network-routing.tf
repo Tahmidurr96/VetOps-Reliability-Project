@@ -3,11 +3,9 @@ resource "aws_eip" "nat_eip" {
   domain = "vpc"
 }
 
-# nat gateway in a public subnet so it can see internet
+# nat gateway in a public subnet so it can see the internet
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.nat_eip.id
-  
-  # public subnet id 
   subnet_id     = "subnet-04a8c56d32950f29b" 
 
   tags = {
@@ -15,23 +13,34 @@ resource "aws_nat_gateway" "nat_gw" {
   }
 }
 
-# tell the private subnets to send all their internet-bound traffic out through the nat
-resource "aws_route" "private_nat_route" {
-  
-  # private route table id
-  route_table_id         = "rtb-06220c841725735c6" 
-  
-  # this 0.0.0.0/0 block just means "literally anywhere on the internet"
-  destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.nat_gw.id
+# dynamically fetch the vpc id so we don't have to hunt for it
+data "aws_subnet" "selected" {
+  id = "subnet-0e606c290592d4005"
 }
 
-# link the second private subnet to join first one
-resource "aws_route_table_association" "private_subnet_2_assoc" {
-  
-  # your floating 4005 subnet
-  subnet_id      = "subnet-0e606c290592d4005"
-  
-  # paste that exact same route table ID here too!
-  route_table_id = "rtb-06220c841725735c6"
+# build a brand new, clean route table exclusively for our private subnets
+resource "aws_route_table" "private_rt" {
+  vpc_id = data.aws_subnet.selected.vpc_id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat_gw.id
+  }
+
+  tags = {
+    Name = "vet-private-route-table"
+  }
 }
+
+# link the first private subnet to the new clean table
+resource "aws_route_table_association" "private_subnet_1_assoc" {
+  subnet_id      = "subnet-09ffb20c4da788637"
+  route_table_id = aws_route_table.private_rt.id
+}
+
+# link the second private subnet to the new clean table
+resource "aws_route_table_association" "private_subnet_2_assoc" {
+  subnet_id      = "subnet-0e606c290592d4005"
+  route_table_id = aws_route_table.private_rt.id
+}
+
