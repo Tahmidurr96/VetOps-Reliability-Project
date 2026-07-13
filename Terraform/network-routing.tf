@@ -6,7 +6,7 @@ resource "aws_eip" "nat_eip" {
 # nat gateway in a public subnet so it can see the internet
 resource "aws_nat_gateway" "nat_gw" {
   allocation_id = aws_eip.nat_eip.id
-  subnet_id     = "subnet-04a8c56d32950f29b" 
+  subnet_id     = "subnet-04a8c56d32950f29b"
 
   tags = {
     Name = "vet-hospital-nat"

@@ -24,9 +24,9 @@ resource "aws_security_group" "elasticache_sg" {
   vpc_id = "vpc-080dbb0b7dc86503a"
 
   ingress {
-    from_port       = 6379
-    to_port         = 6379
-    protocol        = "tcp"
+    from_port = 6379
+    to_port   = 6379
+    protocol  = "tcp"
     # this line allows only our lambda to connect to this cache
     security_groups = [aws_security_group.lambda_sg.id]
   }
@@ -63,14 +63,14 @@ resource "aws_iam_role_policy_attachment" "lambda_vpc_access" {
 # load balancer invocation Permission
 # ==========================================
 resource "aws_lambda_permission" "allow_alb" {
-  statement_id  = "AllowExecutionFromALB"
-  action        = "lambda:InvokeFunction"
+  statement_id = "AllowExecutionFromALB"
+  action       = "lambda:InvokeFunction"
 
   # yet to be defined/written, but named here for now
   function_name = aws_lambda_function.cache_proxy.function_name
   principal     = "elasticloadbalancing.amazonaws.com"
 
   # restricts access to least privelege.
-  source_arn    = aws_lb_target_group.lambda_cache_tg.arn
+  source_arn = aws_lb_target_group.lambda_cache_tg.arn
 }
 
