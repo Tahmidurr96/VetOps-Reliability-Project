@@ -17,6 +17,7 @@ def lambda_handler(event, context):
     
     try:
         # check Elasticache 
+        print("knocking on redis")
         cached_data = cache.get(path)
         
         if cached_data:
@@ -24,6 +25,7 @@ def lambda_handler(event, context):
             return format_alb_response(200, cached_data, "HIT")
             
         # if data isnt in cache get it from the backend
+        print("knocking on vendor api")
         vendor_url = f"{vendor_backend}{path}"
         
         # inject the required authentication and a standard user-agent
