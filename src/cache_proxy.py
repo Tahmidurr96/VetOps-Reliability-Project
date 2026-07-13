@@ -20,12 +20,14 @@ def lambda_handler(event, context):
         cached_data = cache.get(path)
         
         if cached_data:
-            # if data is there return it straight away
-            return format_alb_response(200, cached_data, "HIT")
+          # if data is there return it straight away
+          return format_alb_response(200, cached_data, "HIT")
             
         # if data isnt in cache get it from the backend
         vendor_url = f"{vendor_backend}{path}"
         req = urllib.request.Request(vendor_url, method="GET")
+        
+        req = urllib.request.Request(vendor_url, headers=req_headers, method="GET")
         
         with urllib.request.urlopen(req) as response:
             live_data = response.read().decode('utf-8')

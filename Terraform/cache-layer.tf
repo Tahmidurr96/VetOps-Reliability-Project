@@ -53,11 +53,13 @@ resource "aws_lambda_function" "cache_proxy" {
     security_group_ids = [aws_security_group.lambda_sg.id]
   }
 
+  timeout = 15
+
   # code to put the redis endpoint url at the end of the lambda env variables so no need to hardcode.
   environment {
     variables = {
       REDIS_ENDPOINT     = aws_elasticache_cluster.redis_cache.cache_nodes[0].address
-      VENDOR_BACKEND_URL = "http://vetop-reliability-server.animal-hospital.mkrs.link/"
+      VENDOR_BACKEND_URL = "http://vetop-reliability-server.animal-hospital.mkrs.link:80"
     }
   }
 }
